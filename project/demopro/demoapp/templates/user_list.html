@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registered Users</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; background: #fff; }
+        th, td { padding: 12px; border: 1px solid #ccc; text-align: center; }
+        th { background: #4CAF50; color: white; }
+        a { text-decoration: none; color: white; padding: 5px 10px; border-radius: 4px; }
+        .edit { background: #2196F3; }
+        .delete { background: #f44336; }
+    </style>
+</head>
+<body>
+
+    <h1>Registered Users</h1>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for u in users %}
+        <tr>
+            <td>{{ u.id }}</td>
+            <td>{{ u.username }}</td>
+            <td>{{ u.email }}</td>
+            <td>
+                <a class="edit" href="{% url 'edit_user' u.id %}">Edit</a>
+                <a class="delete" href="{% url 'delete_user' u.id %}">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No users found.</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>
+
+
+<div class="card">
+        <h2>Loan Eligibility Prediction</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="loan_form" value="1">
+            <div class="form-grid">
+                <div>
+                    <label>Gender</label>
+                    <select name="Gender" required>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Married</label>
+                    <select name="Married" required>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Dependents</label>
+                    <select name="Dependents">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3+">3+</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Education</label>
+                    <select name="Education">
+                        <option value="Graduate">Graduate</option>
+                        <option value="Not Graduate">Not Graduate</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Self Employed</label>
+                    <select name="Self_Employed">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Applicant Income</label>
+                    <input type="number" name="ApplicantIncome" required>
+                </div>
+                <div>
+                    <label>Co-applicant Income</label>
+                    <input type="number" name="CoapplicantIncome">
+                </div>
+                <div>
+                    <label>Loan Amount</label>
+                    <input type="number" name="LoanAmount" required>
+                </div>
+                <div>
+                    <label>Loan Amount Term</label>
+                    <input type="number" name="Loan_Amount_Term" value="360">
+                </div>
+                <div>
+                    <label>Credit History</label>
+                    <select name="Credit_History">
+                        <option value="1">Good (1)</option>
+                        <option value="0">Bad (0)</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Property Area</label>
+                    <select name="Property_Area">
+                        <option value="Urban">Urban</option>
+                        <option value="Semiurban">Semi-Urban</option>
+                        <option value="Rural">Rural</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit">Predict Loan Eligibility</button>
+        </form>
+        {% if result %}
+            <h3 class="{% if result == 'Approved' %}success{% else %}fail{% endif %}">
+                Prediction: {{ result }}
+            </h3>
+        {% endif %}
+    </div>

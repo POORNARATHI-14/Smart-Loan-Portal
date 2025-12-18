@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loan History</title>
+
+<style>
+:root {
+    --bg: #1a1a2e;
+    --card: rgba(27,27,47,0.85);
+    --text: #ffffff;
+    --success: #1dd1a1;
+    --danger: #ee5253;
+}
+
+body {
+    font-family:"Poppins", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin:0;
+    padding:25px;
+}
+
+h1 {
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.table-card {
+    background: var(--card);
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 0 36px rgba(0,0,0,0.25);
+    backdrop-filter: blur(15px);
+    overflow-x:auto;
+}
+
+table {
+    width:100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding:12px;
+    text-align:center;
+    border-bottom: 1px solid #333;
+}
+
+th {
+    background: #0f3460;
+}
+
+.success { color: var(--success); font-weight:bold; }
+.fail { color: var(--danger); font-weight:bold; }
+
+a {
+    text-decoration:none;
+    color:#0f3460;
+}
+</style>
+</head>
+<body>
+
+<h1>Your Loan History</h1>
+
+<div class="table-card">
+<table>
+<tr>
+    <th>ID</th>
+    <th>Applicant Income</th>
+    <th>Co-applicant Income</th>
+    <th>Loan Amount</th>
+    <th>Credit History</th>
+    <th>Property Area</th>
+    <th>Education</th>
+    <th>Employment</th>
+    <th>Prediction</th>
+</tr>
+
+{% for loan in loans %}
+<tr>
+    <td>{{ loan.id }}</td>
+    <td>{{ loan.applicant_income }}</td>
+    <td>{{ loan.coapplicant_income }}</td>
+    <td>{{ loan.loan_amount }}</td>
+    <td>{{ loan.credit_history }}</td>
+    <td>{{ loan.property_area }}</td>
+    <td>{{ loan.education }}</td>
+    <td>{{ loan.employment }}</td>
+    <td class="{% if loan.prediction == 'Approved' %}success{% else %}fail{% endif %}">
+        {{ loan.prediction }}
+    </td>
+</tr>
+{% endfor %}
+
+</table>
+</div>
+
+</body>
+</html>

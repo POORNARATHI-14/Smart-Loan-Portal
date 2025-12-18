@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root {
+    --bg: #1a1a2e;
+    --card: rgba(27,27,47,0.85);
+    --text: #ffffff;
+    --primary: #0f3460;
+    --success: #1dd1a1;
+    --danger: #ee5253;
+}
+
+body {
+    font-family:"Poppins", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin:0;
+    padding:25px;
+}
+
+h1 {
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.cards {
+    display:flex;
+    gap:20px;
+    flex-wrap: wrap;
+    justify-content:center;
+}
+
+.card {
+    background: var(--card);
+    padding:20px;
+    border-radius:12px;
+    width:220px;
+    text-align:center;
+    box-shadow:0 0 36px rgba(0,0,0,0.25);
+    backdrop-filter: blur(15px);
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h2 {
+    font-size:2rem;
+    margin:0 0 10px 0;
+}
+
+canvas {
+    display:block;
+    margin:40px auto 0 auto;
+    background: var(--card);
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 0 36px rgba(0,0,0,0.25);
+}
+
+</style>
+</head>
+<body>
+
+<h1>Admin Dashboard</h1>
+
+<div class="cards">
+    <div class="card">
+        <h2>{{ total_users }}</h2>
+        <p>Total Users</p>
+    </div>
+
+    <div class="card">
+        <h2>{{ total_loans }}</h2>
+        <p>Total Applications</p>
+    </div>
+
+    <div class="card">
+        <h2 class="success">{{ approved }}</h2>
+        <p>Approved</p>
+    </div>
+
+    <div class="card">
+        <h2 class="danger">{{ rejected }}</h2>
+        <p>Rejected</p>
+    </div>
+</div>
+
+<canvas id="loanChart" width="400" height="200"></canvas>
+
+<script>
+const approved = JSON.parse('{{ approved|default:0|safe }}');
+const rejected = JSON.parse('{{ rejected|default:0|safe }}');
+
+const ctx = document.getElementById('loanChart');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Approved', 'Rejected'],
+        datasets: [{
+            label: 'Loan Status Count',
+            data: [approved, rejected],
+            backgroundColor: ['#1dd1a1', '#ee5253']
+        }]
+    },
+    options: {
+        responsive:true,
+        plugins: {
+            legend: { display: false },
+        },
+        scales: {
+            y: { beginAtZero: true }
+        }
+    }
+});
+</script>
+
+</body>
+</html>

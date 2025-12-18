@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Loan Portal - Home</title>
+
+<style>
+:root {
+    --bg: #0f0f1a;
+    --card: #1b1b2f;
+    --text: #ffffff;
+    --primary: #0f4c75;
+    --success: #1dd1a1;
+    --danger: #ee5253;
+}
+
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+}
+
+h1 { text-align: center; margin-bottom: 20px; }
+
+.intro-card {
+    background: var(--card);
+    padding: 20px 25px;
+    border-radius: 12px;
+    margin: 40px auto 25px auto;   
+    width: 60%;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(255,255,255,0.05);
+}
+
+.intro-card h2 {
+    font-family: "Montserrat", sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: white;
+    text-shadow: 0 0 10px rgba(0,255,213,0.4);
+    margin-bottom: 10px;
+}
+
+.intro-card p {
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    color: #d9e6ff;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.tabs button {
+    padding: 10px 20px;
+    background: var(--primary);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.tabs button.active {
+    background: var(--success);
+}
+
+.tabs button:hover { opacity: 0.85; }
+
+button.submit-btn, 
+button[type="submit"] {
+    background: linear-gradient(135deg, #0f4c75, #3282b8);
+    padding: 14px 18px;
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 10px;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    color: white;
+    letter-spacing: 0.5px;
+    transition: 0.3s ease;
+    box-shadow: 0 0 8px #0f4c75;
+}
+
+button.submit-btn:hover,
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px #3282b8;
+    opacity: 0.9;
+}
+
+button.submit-btn:active,
+button[type="submit"]:active {
+    transform: scale(0.97);
+}
+
+.section {
+    display: none; 
+    background: var(--card);
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #333;
+    text-align: center;
+}
+
+th { background: var(--primary); }
+.success { color: var(--success); font-weight:bold; }
+.fail { color: var(--danger); font-weight:bold; }
+.action-btn { padding: 5px 10px; border-radius: 6px; color:white; text-decoration:none; font-size:14px; }
+.edit-btn { background:#0984e3; }
+.delete-btn { background:#d63031; }
+
+input, select {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    width: 100%;
+}
+
+button.submit-btn {
+    background: var(--primary);
+    color:white;
+    border:none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor:pointer;
+    margin-top: 15px;
+}
+
+button.submit-btn:hover { opacity: 0.8; }
+
+.info-btn {
+    margin-top: 10px;
+    padding: 10px 25px;
+    background: linear-gradient(135deg, #0f4c75, #3282b8);
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 0 12px rgba(0,255,213,0.3);
+    transition: 0.3s;
+}
+.info-btn:hover {
+    transform: translateY(-2px);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.75);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background: #1b1b2f;
+    width: 420px;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,255,213,0.2);
+    color: white;
+    animation: popup 0.3s ease;
+}
+
+@keyframes popup {
+    from { transform: scale(0.8); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+.modal-content h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #00f7ff;
+}
+
+.close-btn {
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px;
+    border: none;
+    background: #ee5253;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.close-btn:hover {
+    opacity: 0.85;
+}
+
+.logout-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #ee5253, #ff7675);
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 99, 71, 0.4);
+    transition: 0.3s;
+    z-index: 999;
+}
+
+.logout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(255, 99, 71, 0.7);
+}
+
+</style>
+</head>
+
+<body>
+<a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+
+<div class="intro-card">
+    <h2>Smart Loan Portal</h2>
+    <p>This system helps users check their loan eligibility instantly using machine learning. 
+    It includes modules for loan prediction, user management, history tracking, 
+    admin dashboard and loan info description.</p>
+    <p>Click on the sections below to explore.</p>
+</div>
+
+<div class="container">
+
+<h1>Welcome, {{ user.username }}</h1>
+
+<div class="tabs">
+    <button class="tab-btn {% if result %}active{% endif %}" onclick="openSection('loan', this)">Loan Prediction</button>
+    <button class="tab-btn" onclick="openSection('users', this)">Registered Users</button>
+    <button class="tab-btn" onclick="openSection('history', this)">History</button>
+    <button class="tab-btn" onclick="openSection('dashboard', this)">Dashboard</button>
+    <button class="tab-btn" onclick="openInfo()">Loan Info Description</button>
+
+</div>
+
+<div id="loan" class="section" {% if result %} style="display:block;" {% endif %}>
+        <h2>Loan Eligibility Prediction</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="loan_form" value="1">
+            <div class="form-grid">
+                <div>
+                    <label>Gender</label>
+                    <select name="Gender" required>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Married</label>
+                    <select name="Married" required>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Dependents</label>
+                    <select name="Dependents">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3+">3+</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Education</label>
+                    <select name="Education">
+                        <option value="Graduate">Graduate</option>
+                        <option value="Not Graduate">Not Graduate</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Self Employed</label>
+                    <select name="Self_Employed">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Applicant Income</label>
+                    <input type="number" name="ApplicantIncome" required>
+                </div>
+                <div>
+                    <label>Co-applicant Income</label>
+                    <input type="number" name="CoapplicantIncome">
+                </div>
+                <div>
+                    <label>Loan Amount</label>
+                    <input type="number" name="LoanAmount" required>
+                </div>
+                <div>
+                    <label>Loan Amount Term</label>
+                    <input type="number" name="Loan_Amount_Term" value="360">
+                </div>
+                <div>
+                    <label>Credit History</label>
+                    <select name="Credit_History">
+                        <option value="1">Good (1)</option>
+                        <option value="0">Bad (0)</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Property Area</label>
+                    <select name="Property_Area">
+                        <option value="Urban">Urban</option>
+                        <option value="Semiurban">Semi-Urban</option>
+                        <option value="Rural">Rural</option>
+                    </select>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top:20px;">
+                <button type="submit" class="submit-btn">Predict Loan Eligibility</button>
+            </div>
+            <div id="resultBox">
+        {% if result %}
+        <h3 class="{% if result == 'Approved' %}success{% else %}fail{% endif %}">
+            Prediction: {{ result }}
+        </h3>
+        {% endif %}
+
+        {% if result %}
+            <div style="margin-top:15px; padding:15px; background:#1b1b2f; border-radius:10px;">
+                <h4>Decision Explanation</h4>
+                <ul>
+                    {% for reason in reasons %}
+                        <li> {{ reason }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        </div>
+        </form>
+    </div>
+
+<div id="users" class="section" style="display:none;">
+    <h2>Registered Users</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        {% for u in users %}
+        <tr>
+            <td>{{ u.id }}</td>
+            <td>{{ u.username }}</td>
+            <td>{{ u.email }}</td>
+            <td><a class="action-btn edit-btn" href="{% url 'edit_user' u.id %}">Edit</a></td>
+            <td><a class="action-btn delete-btn" href="{% url 'delete_user' u.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div id="history" class="section" style="display:none;">
+    <h2>Your Loan History</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Applicant Income</th>
+            <th>Co-applicant Income</th>
+            <th>Loan Amount</th>
+            <th>Credit History</th>
+            <th>Property Area</th>
+            <th>Prediction</th>
+        </tr>
+        {% for loan in loans %}
+        <tr>
+            <td>{{ loan.id }}</td>
+            <td>{{ loan.applicant_income }}</td>
+            <td>{{ loan.coapplicant_income }}</td>
+            <td>{{ loan.loan_amount }}</td>
+            <td>{{ loan.credit_history }}</td>
+            <td>{{ loan.property_area }}</td>
+            <td class="{% if loan.prediction == 'Approved' %}success{% else %}fail{% endif %}">
+                {{ loan.prediction }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div id="dashboard" class="section" style="display:none;">
+    <h2>Dashboard</h2>
+    <p>Total Users: {{ total_users }}</p>
+    <p>Total Loans: {{ total_loans }}</p>
+    <p>Approved: {{ approved }}</p>
+    <p>Rejected: {{ rejected }}</p>
+</div>
+
+<div id="infoModal" class="modal">
+  <div class="modal-content">
+    <h2 style="text-align:center; margin-bottom:15px; color: white;">Loan Status Guide</h2>
+
+    <p><b style="color:#1dd1a1;"> Approved:</b>  
+    When your income is good, credit history is strong (1), loan amount is reasonable, and your repayment capability is clear.</p>
+
+    <p><b style="color:#ee5253;"> Rejected:</b>  
+    When income is low, credit history = 0, loan amount is too high, or financial risk is high.</p>
+
+    <hr style="border:0; border-bottom:1px solid #333; margin:15px 0;">
+
+    <h3 style="margin-bottom:10px;">Input Field Meaning</h3>
+    <ul style="line-height:1.6; color:#d9e6ff;">
+        <li><b>Applicant Income:</b> Your monthly salary.</li>
+        <li><b>Co-applicant Income:</b> Family/partner’s supporting income.</li>
+        <li><b>Credit History:</b> 1 = Good record, 0 = Poor record.</li>
+        <li><b>Loan Amount:</b> Total loan you are requesting.</li>
+        <li><b>Loan Amount Term:</b> Number of months to repay (usually 360).</li>
+        <li><b>Dependents:</b> Number of people financially depending on you.</li>
+        <li><b>Self Employed:</b> Yes/No – shows income stability.</li>
+        <li><b>Property Area:</b> Urban/Semi-Urban/Rural (Urban has higher approval chance).</li>
+    </ul>
+      <button class="close-btn" onclick="closeInfo()">Close</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+function openSection(sectionId, btn) {
+
+    
+    let sections = document.getElementsByClassName('section');
+    for (let sec of sections) {
+        sec.style.display = 'none';
+    }
+
+    let buttons = document.getElementsByClassName('tab-btn');
+    for (let b of buttons) {
+        b.classList.remove('active');
+    }
+
+    document.getElementById(sectionId).style.display = "block";
+
+    btn.classList.add('active');
+}
+
+function openInfo() {
+    document.getElementById("infoModal").style.display = "flex";
+}
+function closeInfo() {
+    document.getElementById("infoModal").style.display = "none";
+}
+
+</script>
+<input type="hidden" id="hasResult" value="{% if result %}1{% else %}0{% endif %}">
+<script>
+window.onload = function () {
+    const hasResult = document.getElementById("hasResult").value;
+
+    if (hasResult === "1") {
+        const loanBtn = document.querySelector('.tab-btn');
+        openSection('loan', loanBtn);
+    }
+}
+</script>
+
+</body>
+</html>
